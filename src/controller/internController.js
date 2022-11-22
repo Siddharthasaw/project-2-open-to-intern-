@@ -1,15 +1,17 @@
-// // // Model improt are -->
+//====================================================** Model improt are **===================================================
+
 const collegeModel = require("../model/collegeModel")
 const internModel = require("../model/internModel")
 
 
-// // Some Imp. Regex are -->
+//=====================================================** Some Imp. Regex are **====================================================
+
 const nameReg = /^([A-Za-z ]+){3,}$/
 const emailReg = /^([a-z0-9\.-]+)@([a-z0-9-]+).([a-z]{2,20})$/
 const mobileReg = /^([+]\d{2})?\d{10,}$/
 
 
-
+//===================================================** validation **===================================================================
 
 const isValid = function (value) {
     if (typeof value === "undefined" || value === "null") return false;
@@ -21,7 +23,8 @@ const isValid = function (value) {
 
 
 
-// // // Route handler for create intern Api
+//===================================================** Create intern** ===========================================================
+
 const createIntern = async function (req, res) {
 
     try {
@@ -45,8 +48,6 @@ const createIntern = async function (req, res) {
         // // if collegeName is not given and not should empty
         if (!isValid(collegeName)) return res.status(400).send({ status: false, message: "college Name is not given or Invalid formate for College Name." })
 
-        // console.log(body)
-
 
         let alreadyData = await internModel.findOne({$or : [{mobile : mobile} , {email : email}]})
 
@@ -55,8 +56,6 @@ const createIntern = async function (req, res) {
         let collegeIdByClgName = await collegeModel.findOne({ name : collegeName , isDeleted : false })
 
         if (!collegeIdByClgName) return res.status(404).send({ status: false, message: "Given College Name is not present in DB or Deleted in DB" })
-
-        // console.log(collegeIdByClgName)
 
         body.collegeId = collegeIdByClgName._id
 
@@ -69,10 +68,6 @@ const createIntern = async function (req, res) {
     }
 
 }
-
-
-
-
 
 
 module.exports = { createIntern }

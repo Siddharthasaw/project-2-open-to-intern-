@@ -1,9 +1,8 @@
 
-
 const collegeModel = require("../model/collegeModel")
 const internModel = require("../model/internModel")
 
-
+//======================================================= validation ===============================================================
 
 const isValid = function (value) {
     if (typeof value === "undefined" || value === "null") return false;
@@ -13,10 +12,13 @@ const isValid = function (value) {
     return true;
 }
 
-// // // Regex for Url --->
+//==============================================**Regex for Url**=========================================================
+
 const urlRegex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
 
 
+
+//=============================================** Create Collage **=========================================================
 
 const createCollege = async function(req,res) {
     try {
@@ -48,8 +50,8 @@ const createCollege = async function(req,res) {
 }
 
 
+//=========================================================**Get all detail**==========================================================
 
-// // // Get all detail 
 const getCollegeDetails = async function (req, res) {
     try {
         const query = req.query
@@ -74,12 +76,6 @@ const getCollegeDetails = async function (req, res) {
         return res.status(500).send({ status: false, message: error.message })
     }
 }
-
-
-
-
-
-
 
 
 module.exports = { getCollegeDetails  ,createCollege  }
