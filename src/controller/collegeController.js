@@ -15,6 +15,11 @@ const isValid = function (value) {
 //==============================================**Regex for Url**=========================================================
 
 const urlRegex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
+const clgNmaeRegex = /^([a-z]{2,})*$/gm
+const clgFullNmaeRegex =/^([a-zA-Z \_\.\-\,]{5,})*$/gm
+
+
+
 
 
 
@@ -28,9 +33,9 @@ const createCollege = async function(req,res) {
         if (Object.keys(data).length == 0) return res.status(400).send({status: false, message: "Data is not provided"})
         
 
-        if (!isValid(name))  return res.status(400).send({status: false, message: "Please enter valid name"})
+        if (!isValid(name) || !name.match(clgNmaeRegex))  return res.status(400).send({status: false, message: "Please enter valid name"})
         
-        if (!isValid(fullName))  return res.status(400).send({status: false, message: "Please enter valid fullName"})
+        if (!isValid(fullName)|| !fullName.match(clgFullNmaeRegex))  return res.status(400).send({status: false, message: "Please enter valid fullName"})
 
         if (!isValid(logoLink) || !logoLink.match(urlRegex))    return res.status(400).send({status: false, message: "Please enter valid logolink (Url in http:// formate)"})
         
