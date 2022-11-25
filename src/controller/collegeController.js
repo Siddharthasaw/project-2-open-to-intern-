@@ -27,6 +27,10 @@ const clgFullNmaeRegex =/^([a-zA-Z \_\.\-\,]{5,})*$/gm
 
 const createCollege = async function(req,res) {
     try {
+
+        res.setHeader('Access-Control-Allow-Origin','*')
+
+
         let data = req.body;
         const { name, fullName, logoLink } = data;
 
@@ -59,6 +63,9 @@ const createCollege = async function(req,res) {
 
 const getCollegeDetails = async function (req, res) {
     try {
+
+        res.setHeader('Access-Control-Allow-Origin','*')
+
         const query = req.query
         const collegeName = query.collegeName
 
@@ -72,7 +79,7 @@ const getCollegeDetails = async function (req, res) {
         
         const internDetails = await internModel.find({ collegeId: collegeDetails._id , isDeleted: false }).select({ isDeleted: 0, collegeId: 0 , createdAt : 0 , updatedAt : 0 , __v : 0})
 
-        if (internDetails.length == 0) return res.status(404).send({ status: false, message: "There are no intern in this college." })
+        if (internDetails.length == 0) return res.status(200).send({ status: false, message: "There are no intern in this college." })
         
         return res.status(200).send({ status: true, data: { name: collegeDetails.name, fullName: collegeDetails.fullName, logolink: collegeDetails.logoLink, interns: internDetails } })
     }

@@ -30,6 +30,9 @@ const createIntern = async function (req, res) {
 
     try {
 
+        res.setHeader('Access-Control-Allow-Origin','*')
+        
+
         let body = req.body
 
         let { name, mobile, email, collegeName } = body
